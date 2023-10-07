@@ -1,15 +1,41 @@
-const About=()=>{
-    return(
-        <>
-            <h1 >**About Us**
 
-Welcome to [navgurukul], where our journey began with a shared passion for [mention your core mission or purpose]. Founded in [year of establishment], we have since grown into a dedicated team of individuals who are committed to [briefly describe your organization's mission or goals].
 
-At [navgurukul], we believe in [meraki intern], and our mission is to [explain the primary purpose or objective of your organization]. With a strong focus on [highlight areas of expertise or specialization], we are dedicated to providing [mention what your organization provides, such as products, services
-</h1>
-        </>
-
-    )
-
+function About() {
+  return (
+    <div>
+        <table>
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>Student_Name</th>
+              <th>Passent</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>priya</td>
+              <td>80%</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Pinki</td>
+              <td>90%</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>jaya</td>
+              <td>90%</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>niki</td>
+              <td>95%</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  );
 }
+
 export default About;
