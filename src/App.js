@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './Component/Home';
 import About from './Component/About';
 import Form from './Component/Form';
+import Product from './Component/Product';
 import { AppBar, Toolbar, Button, TextField } from '@mui/material';
 
 const App = () => {
@@ -26,22 +27,19 @@ const App = () => {
             <Link to="/Form" style={{ textDecoration: 'none' }}>
               <Button color="inherit">Form</Button>
             </Link>
+            <Link to="/Product" style={{ textDecoration: 'none' }}>
+              <Button color="inherit">Product</Button>
+            </Link>
           </Toolbar>
         </AppBar>
 
-        <center>
-        <input
-          label="Enter something"
-      
-      
-        />
-        <button>Submit</button>
-        </center>
+        
 
         <Routes>
           <Route path="/Home" element={<Home />} />
           <Route path="/About" element={<About />} />
           <Route path="/Form" element={<Form />} />
+          <Route path="/Product" element={<Product />} />
         </Routes>
       </div>
     </Router>

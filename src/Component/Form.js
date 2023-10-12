@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import { Card, CardContent, Typography, TextField, Button } from '@mui/material';
 
 function Form() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [Mobile, setMobile] = useState('');
-  
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
@@ -13,54 +13,54 @@ function Form() {
   };
 
   return (
-    <div>
-      
-      <form onSubmit={handleSubmit}>
-        <div>
-            <h1>Full Name</h1>
-          <input
-            type="text"
-            id="name"
+    <Card
+      sx={{
+        backgroundImage: 'url("light.jpg")',
+        backgroundSize: 'cover',
+        textAlign: 'center',
+      }}
+    >
+      <CardContent>
+        <Typography variant="h4" gutterBottom>
+          My Form
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            label="Full Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
+            fullWidth
           />
-        </div>
-        <div>
-            <h1>Mobile</h1>
-          <input
-            type="text"
-            id="Mobile"
+          <TextField
+            label="Mobile"
             value={Mobile}
             onChange={(e) => setMobile(e.target.value)}
             required
+            fullWidth
           />
-        </div>
-        <div>
-
-          <h1>Email</h1>
-          <input
+          <TextField
+            label="Email"
             type="email"
-            id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            fullWidth
           />
-        </div>
-        <div>
-          <button type="submit">Submit</button>
-        </div>
-      </form>
+          <Button type="submit" variant="contained" color="primary" fullWidth>
+            Submit
+          </Button>
+        </form>
 
-      {isSubmitted && (
-        <div>
-            
-          <p>Name: {name}</p>
-          <p>Email: {email}</p>
-          <p>Mobile:{Mobile}</p>
-        </div>
-      )}
-    </div>
+        {isSubmitted && (
+          <div>
+            <Typography>Name: {name}</Typography>
+            <Typography>Email: {email}</Typography>
+            <Typography>Mobile: {Mobile}</Typography>
+          </div>
+        )}
+      </CardContent>
+    </Card>
   );
 }
 

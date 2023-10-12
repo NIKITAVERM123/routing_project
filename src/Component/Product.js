@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Grid from '@mui/material/Grid';
-import { Margin } from '@mui/icons-material';
 
-function Home() {
+function Product() {
   const [data, setData] = useState(null);
   const [inputUrl, setInputUrl] = useState('');
 
@@ -39,6 +37,7 @@ function Home() {
           <input
             type="text"
             value={inputUrl}
+            
             onChange={(e) => setInputUrl(e.target.value)}
           />
         </label>
@@ -46,22 +45,25 @@ function Home() {
       </div>
       {data ? (
         <div>
-          <Grid container spacing={2}>
-            {data.map((product) => (
-              <Grid item key={product.id}>
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  style={{ width: 300p', height: '200px', Margin: '5px'}}
-                />
-              </Grid>
-            ))}
-          </Grid>
+
+          {data.map((product) => (
+            <div key={product.id}>
+              <h2>{product.title}</h2>
+              <img
+                src={product.image}
+          
+                style={{ maxWidth: '200px' }}
+              />
+              <p>{product.description}</p>
+            
+            </div>
+          ))}
         </div>
-      ) : (00
+      ) : (
         <p>Loading data...</p>
       )}
     </div>
   );
 }
-export default Home;
+
+export default Product;
