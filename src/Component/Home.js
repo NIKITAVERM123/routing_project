@@ -1,67 +1,61 @@
 import React, { useState, useEffect } from 'react';
-import Grid from '@mui/material/Grid';
-import { Margin } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
 function Home() {
   const [data, setData] = useState(null);
-  const [inputUrl, setInputUrl] = useState('');
-
-  const fetchData = async (url) => {
-    try {
-      const response = await fetch(url);
-      if (response.ok) {
-        const responseData = await response.json();
-        setData(responseData);
-      } else {
-        console.error('Error fetching data:', response.status);
-        setData(null);
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      setData(null);
-    }
-  };
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
-    fetchData('https://fakestoreapi.com/products');
+    // Fetch data from your API here
+    fetch('https://fakestoreapi.com/products')
+      .then((response) => response.json())
+      .then((responseData) => setData(responseData))
+      .catch((error) => console.error('Error fetching data:', error));
   }, []);
 
-  const handleInputSubmit = () => {
-    fetchData(inputUrl);
+  // Function to handle image click
+  const handleImageClick = (product) => {
+    setSelectedProduct(product);
   };
 
   return (
     <div>
-      <h1>Home</h1>
-      <div>
-        <label>
-          Enter URL:
-          <input
-            type="text"
-            value={inputUrl}
-            onChange={(e) => setInputUrl(e.target.value)}
-          />
-        </label>
-        <button onClick={handleInputSubmit}>Fetch Data</button>
-      </div>
+      {/* ... */}
       {data ? (
         <div>
-          <Grid container spacing={2}>
-            {data.map((product) => (
-              <Grid item key={product.id}>
+          {data.map((product) => (
+            <div key={product.id} onClick={() => handleImageClick(product)}>
+              <h2>{product.title}</h2>
+              <Link to={`/product/${product.id}`}>
                 <img
                   src={product.image}
+                  style={{ maxWidth: '200px' }}
                   alt={product.title}
-                  style={{ width: 300p', height: '200px', Margin: '5px'}}
                 />
-              </Grid>
-            ))}
-          </Grid>
+              </Link>
+              <p>{product.description}</p>
+            </div>
+          ))}
         </div>
-      ) : (00
+      ) : (
         <p>Loading data...</p>
       )}
+
+      {selectedProduct && (
+        <div>
+          <h2>Product Details</h2>
+          <p>Title: {selectedProduct.title}</p>
+          <img
+            src={selectedProduct.image}
+            style={{ maxWidth: '200px' }}
+            alt={selectedProduct.title}
+          />
+          <p>Description: {selectedProduct.description}</p>
+        </div>
+      )}
+      {/* ... */}
     </div>
   );
 }
+
 export default Home;
