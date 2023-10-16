@@ -1,67 +1,95 @@
 import React, { useState } from 'react';
-import { Card, CardContent, Typography, TextField, Button } from '@mui/material';
+import { TextField, Button, Container } from '@mui/material';
+import { Link } from 'react-router-dom';
 
-function Form() {
-  const [name, setName] = useState('');
+const Form = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [Mobile, setMobile] = useState('');
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [password, setPassword] = useState('');
+  const [registrationCompleted, setRegistrationCompleted] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsSubmitted(true);
-  };
+  function handleSubmit(event) {
+    event.preventDefault();
+  
+
+    
+    setRegistrationCompleted(true);
+  }
 
   return (
-    <Card
-      sx={{
-        backgroundImage: 'url("light.jpg")',
-        backgroundSize: 'cover',
-        textAlign: 'center',
-      }}
-    >
-      <CardContent>
-        <Typography variant="h4" gutterBottom>
-          My Form
-        </Typography>
+    <Container>
+      <h2>Register Form</h2>
+      {registrationCompleted ? (
+        <p>Registration Completed</p>
+      ) : (
         <form onSubmit={handleSubmit}>
           <TextField
-            label="Full Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
+            type="text"
+            variant='outlined'
+            color='secondary'
+            label="First Name"
+            onChange={e => setFirstName(e.target.value)}
+            value={firstName}
             fullWidth
+            required
           />
           <TextField
-            label="Mobile"
-            value={Mobile}
-            onChange={(e) => setMobile(e.target.value)}
-            required
+            type="text"
+            variant='outlined'
+            color='secondary'
+            label="Last Name"
+            onChange={e => setLastName(e.target.value)}
+            value={lastName}
             fullWidth
+            required
           />
           <TextField
-            label="Email"
             type="email"
+            variant='outlined'
+            color='secondary'
+            label="Email"
+            onChange={e => setEmail(e.target.value)}
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            fullWidth
+            required
+            sx={{ mb: 4 }}
+          />
+          <TextField
+            type="password"
+            variant='outlined'
+            color='secondary'
+            label="Password"
+            onChange={e => setPassword(e.target.value)}
+            value={password}
             required
             fullWidth
+            sx={{ mb: 4 }}
           />
-          <Button type="submit" variant="contained" color="primary" fullWidth>
-            Submit
+          <TextField
+            type="date"
+            variant='outlined'
+            color='secondary'
+            label="Date of Birth"
+            onChange={e => setDateOfBirth(e.target.value)}
+            value={dateOfBirth}
+            fullWidth
+            required
+            sx={{ mb: 4 }}
+          />
+          <Button variant="outlined" color="secondary" type="submit">
+            Register
           </Button>
         </form>
-
-        {isSubmitted && (
-          <div>
-            <Typography>Name: {name}</Typography>
-            <Typography>Email: {email}</Typography>
-            <Typography>Mobile: {Mobile}</Typography>
-          </div>
-        )}
-      </CardContent>
-    </Card>
+      )}
+      {registrationCompleted ? null : (
+        <small>
+          Already have an account? <Link to="/login">Login Here</Link>
+        </small>
+      )}
+    </Container>
   );
-}
+};
 
 export default Form;

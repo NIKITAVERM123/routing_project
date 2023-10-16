@@ -4,36 +4,29 @@ import Home from './Component/Home';
 import About from './Component/About';
 import Form from './Component/Form';
 import Product from './Component/Product';
-import { AppBar, Toolbar, Button, TextField } from '@mui/material';
+import { AppBar, Toolbar, Button } from '@mui/material';
 
 const App = () => {
-  const [userInput, setUserInput] = useState(''); // State to store user input
-
-  const handleInputChange = (e) => {
-    setUserInput(e.target.value); // Update state with user input
-  };
 
   return (
     <Router>
       <div>
         <AppBar position="static">
           <Toolbar>
-            <Link to="/Home" style={{ textDecoration: 'none' }}>
+            <Link to="/Home" style={{ textDecoration: 'none', color: 'black' }}>
               <Button color="inherit">Home</Button>
             </Link>
-            <Link to="/About" style={{ textDecoration: 'none' }}>
+            <Link to="/About" style={{ textDecoration: 'none', color: 'black' }}>
               <Button color="inherit">About</Button>
             </Link>
-            <Link to="/Form" style={{ textDecoration: 'none' }}>
+            <Link to="/Form" style={{ textDecoration: 'none', color: 'black' }}>
               <Button color="inherit">Form</Button>
             </Link>
-            <Link to="/Product" style={{ textDecoration: 'none' }}>
+            <Link to="/Product" style={{ textDecoration: 'none',color:'black' }}>
               <Button color="inherit">Product</Button>
             </Link>
           </Toolbar>
         </AppBar>
-
-        
 
         <Routes>
           <Route path="/Home" element={<Home />} />

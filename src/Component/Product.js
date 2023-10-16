@@ -1,18 +1,67 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
 function Product() {
-  const { id } = useParams(); // Get the product ID from the URL parameter
+  const [data, setData] = useState(null);
+  const [inputUrl, setInputUrl] = useState('');
 
-  // Fetch the product details using the product ID
+  const fetchData = async (url) => {
+    try {
+      const response = await fetch(url);
+      if (response.ok) {
+        const responseData = await response.json();
+        setData(responseData);
+      } else {
+        console.error('Error fetching data:', response.status);
+        setData(null);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setData(null);
+    }
+  };
+
+  useEffect(() => {
+    fetchData('https://fakestoreapi.com/products');
+  }, []);
+
+  const handleInputSubmit = () => {
+    fetchData(inputUrl);
+  };
 
   return (
     <div>
-      <h2>Product Details for ID {id}</h2>
-      {/* Display product details based on the fetched data */}
-      <p>Title: Product Title</p>
-      <p>Image: Product Image</p>
-      <button>Buy</button>
+      <h1>Home</h1>
+      <div>
+        <label>
+          Enter URL:
+          <input
+            type="text"
+            value={inputUrl}
+            
+            onChange={(e) => setInputUrl(e.target.value)}
+          />
+        </label>
+        <button onClick={handleInputSubmit}>Fetch Data</button>
+      </div>
+      {data ? (
+        <div>
+
+          {data.map((product) => (
+            <div key={product.id}>
+              <h2>{product.title}</h2>
+              <img
+                src={product.image}
+          
+                style={{ maxWidth: '200px' }}
+              />
+              <p>{product.description}</p>
+            
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>Loading data...</p>
+      )}
     </div>
   );
 }

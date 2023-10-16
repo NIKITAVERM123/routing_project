@@ -1,39 +1,40 @@
-
+import React, { useState, useEffect } from 'react';
 
 function About() {
+  const [data, setData] = useState([]);
+  const apiUrl = 'https://fakestoreapi.com/products'; 
+
+  useEffect(() => {
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((result) => {
+        setData(result);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
   return (
     <div>
-        <table>
-          <thead>
-            <tr>
-              <th>id</th>
-              <th>Student_Name</th>
-              <th>Passent</th>
+      <table>
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Tittle</th>
+            <th>Decribtion</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item) => (
+            <tr key={item.id}>
+              <td>{item.id}</td>
+              <td>{item.title}</td>
+              <td>{item.description}</td>
             </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>priya</td>
-              <td>80%</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Pinki</td>
-              <td>90%</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>jaya</td>
-              <td>90%</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>niki</td>
-              <td>95%</td>
-            </tr>
-          </tbody>
-        </table>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

@@ -1,59 +1,71 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import Button from '@mui/material/Button';
 
 function Home() {
-  const [data, setData] = useState(null);
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [selectedProductIndex, setSelectedProductIndex] = useState(0);
+  const [buy, setBuy] = useState(false);
 
   useEffect(() => {
-    // Fetch data from your API here
     fetch('https://fakestoreapi.com/products')
       .then((response) => response.json())
-      .then((responseData) => setData(responseData))
-      .catch((error) => console.error('Error fetching data:', error));
+      .then((data) => setProducts(data))
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
   }, []);
 
-  // Function to handle image click
-  const handleImageClick = (product) => {
-    setSelectedProduct(product);
+  const handleNextClick = () => {
+    if (selectedProductIndex < products.length - 1) {
+      setSelectedProductIndex(selectedProductIndex + 1);
+      setBuy(false); // Reset the buy state when changing products
+    }
+  };
+
+  const handlePreviousClick = () => {
+    if (selectedProductIndex > 0) {
+      setSelectedProductIndex(selectedProductIndex - 1);
+      setBuy(false); // Reset the buy state when changing products
+    }
+  };
+
+  const handleBuy = () => {
+    setBuy(true);
   };
 
   return (
     <div>
-      {/* ... */}
-      {data ? (
-        <div>
-          {data.map((product) => (
-            <div key={product.id} onClick={() => handleImageClick(product)}>
-              <h2>{product.title}</h2>
-              <Link to={`/product/${product.id}`}>
-                <img
-                  src={product.image}
-                  style={{ maxWidth: '200px' }}
-                  alt={product.title}
-                />
-              </Link>
-              <p>{product.description}</p>
-            </div>
-          ))}
-        </div>
+      <h1>Home</h1>
+      {buy ? (
+        <p>Completed</p>
       ) : (
-        <p>Loading data...</p>
-      )}
-
-      {selectedProduct && (
         <div>
-          <h2>Product Details</h2>
-          <p>Title: {selectedProduct.title}</p>
-          <img
-            src={selectedProduct.image}
-            style={{ maxWidth: '200px' }}
-            alt={selectedProduct.title}
-          />
-          <p>Description: {selectedProduct.description}</p>
+          <button onClick={handlePreviousClick}>Previous</button>
+          <button onClick={handleNextClick}>Next</button>
+
+          {products.length > 0 ? (
+            <div>
+              <h2>{products[selectedProductIndex].title}</h2>
+              <img
+                src={products[selectedProductIndex].image}
+                alt={products[selectedProductIndex].title}
+                style={{ maxWidth: '200px' }}
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleBuy}
+                style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                
+              
+                Buy
+              </Button>
+            </div>
+          ) : (
+            <p>Loading data...</p>
+          )}
         </div>
       )}
-      {/* ... */}
     </div>
   );
 }
