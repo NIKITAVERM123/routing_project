@@ -4,6 +4,7 @@ import Home from './Component/Home';
 import About from './Component/About';
 import Form from './Component/Form';
 import Product from './Component/Product';
+import Ref from './Component/Ref';
 import { AppBar, Toolbar, Button } from '@mui/material';
 
 const App = () => {
@@ -25,6 +26,9 @@ const App = () => {
             <Link to="/Product" style={{ textDecoration: 'none',color:'black' }}>
               <Button color="inherit">Product</Button>
             </Link>
+            <Link to="/Ref" style={{ textDecoration: 'none',color:'black' }}>
+              <Button color="inherit">Ref</Button>
+            </Link>
           </Toolbar>
         </AppBar>
 
@@ -33,6 +37,7 @@ const App = () => {
           <Route path="/About" element={<About />} />
           <Route path="/Form" element={<Form />} />
           <Route path="/Product" element={<Product />} />
+          <Route path="/Ref" element={<Ref />} />
         </Routes>
       </div>
     </Router>
